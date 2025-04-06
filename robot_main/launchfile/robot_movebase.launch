@@ -1,0 +1,7 @@
+<launch>
+    <!-- Charger les paramètres de move_base depuis le fichier YAML -->
+    <param name="move_base" command="load" file="$(find robot_main)/config/move_base_params.yaml" />
+
+    <!-- Lancer le nœud move_base -->
+    <node name="move_base" pkg="move_base" type="move_base" output="screen" />
+</launch>

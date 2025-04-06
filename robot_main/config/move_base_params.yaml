@@ -1,0 +1,147 @@
+# Paramètres généraux de move_base
+move_base:
+  # Définition des frames de référence
+  global_frame: "map"  # Le cadre global dans lequel nous nous référons pour la carte
+  robot_base_frame: "base_link"  # Le cadre de référence pour le robot
+  odom_frame: "odom"  # Le cadre d'odométrie pour les déplacements relatifs
+  base_link_frame: "base_link"
+  planner_frequency: 10.0  # Fréquence de planification du mouvement en Hz
+  controller_frequency: 10.0  # Fréquence de contrôle du robot en Hz
+
+  # Paramètres du planificateur global
+  global_costmap:
+    global_frame: "map"  # Le cadre de référence du costmap global
+    robot_base_frame: "base_link"  # Le cadre du robot pour le costmap
+    update_frequency: 5.0  # Fréquence à laquelle le costmap est mis à jour
+    static_map: true  # Utiliser une carte statique
+    rolling_window: false  # Si activé, la fenêtre du costmap suit le robot
+    width: 10.0  # Largeur du costmap en mètres
+    height: 10.0  # Hauteur du costmap en mètres
+    resolution: 0.05  # Résolution du costmap en mètres
+    robot_radius: 0.2  # Rayon du robot (utilisé pour les calculs d'obstacles)
+    obstacle_range: 2.5  # Plage de détection des obstacles
+    raytrace_range: 3.0  # Plage de raytracing pour les obstacles
+    inflation_radius: 0.55  # Rayon d'inflation autour des obstacles
+    cost_scaling_factor: 10.0  # Facteur de mise à l'échelle des coûts d'inflation
+    footprint: [[-0.2, -0.2], [-0.2, 0.2], [0.2, 0.2], [0.2, -0.2]]  # Modèle du pied du robot (rectangle ici)
+
+  # Paramètres du planificateur global
+  global_planner:
+    plugin: "navfn/NavfnROS"  # Planificateur global utilisant l'algorithme A* ou Dijkstra
+    costmap: "global_costmap"  # Utilise le costmap global pour planifier le chemin
+
+  # Paramètres du planificateur local
+  local_costmap:
+    global_frame: "odom"  # Le cadre de référence du costmap local
+    robot_base_frame: "base_link"  # Le cadre du robot pour le costmap local
+    update_frequency: 5.0  # Fréquence de mise à jour du costmap local
+    rolling_window: true  # Le costmap local suit le robot
+    width: 3.0  # Largeur du costmap local en mètres
+    height: 3.0  # Hauteur du costmap local en mètres
+    resolution: 0.05  # Résolution du costmap local en mètres
+    robot_radius: 0.2  # Rayon du robot pour les calculs locaux
+    inflation_radius: 0.55  # Rayon d'inflation des obstacles localement
+    obstacle_range: 2.5  # Plage de détection des obstacles pour le local costmap
+    raytrace_range: 3.0  # Plage de raytracing des obstacles pour le local costmap
+
+  # Paramètres du planificateur local
+  local_planner:
+    plugin: "base_local_planner/TrajectoryPlannerROS"  # Utilisation de base_local_planner
+    costmap: "local_costmap"  # Utilisation du local_costmap pour la planification locale
+    max_vel_x: 0.5  # Vitesse maximale en avant (m/s)
+    min_vel_x: 0.0  # Vitesse minimale en avant (m/s)
+    max_vel_y: 0.3  # Vitesse maximale latérale (m/s) - composante Y
+    min_vel_y: -0.3  # Vitesse minimale latérale (m/s) - composante Y (valeur négative pour déplacement vers l'arrière)
+    max_vel_theta: 1.0  # Vitesse angulaire maximale (rad/s)
+    min_vel_theta: 0.0  # Vitesse angulaire minimale (rad/s)
+    acc_lim_x: 1.0  # Accélération maximale en avant (m/s^2)
+    acc_lim_y: 0.5  # Accélération maximale latérale (m/s^2) - composante Y
+    acc_lim_theta: 1.0  # Accélération angulaire maximale (rad/s^2)
+    yaw_goal_tolerance: 0.261799  # Tolérance d'orientation pour atteindre l'objectif (rad) ~15deg
+    xy_goal_tolerance: 0.05  # Tolérance de position pour atteindre l'objectif (m)
+    # forward_vel: 0.25  # Vitesse de déplacement en avant (m/s)
+    stop_time_buffer: 0.01  # Temps d'arrêt supplémentaire après avoir atteint l'objectif (s)
+    # max_accel: 0.5  # Accélération maximale (m/s^2)
+    max_decel: 0.5  # Décélération maximale (m/s^2)
+
+  # # Paramètres pour le contrôleur local (comme DWA)
+  # dwa_planner:
+  #   max_vel_x: 0.5  # Vitesse linéaire maximale (m/s)
+  #   min_vel_x: 0.0  # Vitesse linéaire minimale (m/s)
+  #   max_vel_y: 0.3  # Vitesse maximale latérale (m/s)
+  #   min_vel_y: -0.3  # Vitesse minimale latérale (m/s) - composante Y
+  #   max_vel_theta: 1.0  # Vitesse angulaire maximale (rad/s)
+  #   min_vel_theta: 0.0  # Vitesse angulaire minimale (rad/s)
+  #   acc_lim_x: 1.0  # Accélération maximale (m/s^2)
+  #   acc_lim_y: 0.5  # Accélération latérale maximale (m/s^2) - composante Y
+  #   acc_lim_theta: 1.0  # Accélération angulaire maximale (rad/s^2)
+  #   xy_goal_tolerance: 0.05  # Tolérance de position pour la planification locale
+  #   yaw_goal_tolerance: 0.261799  # Tolérance d'orientation pour la planification locale ~15deg
+
+  # Paramètres pour le contrôleur d'inflation des obstacles
+  inflation_layer:
+    cost_scaling_factor: 10.0  # Facteur de mise à l'échelle du coût des obstacles proches
+    inflation_radius: 0.55  # Rayon d'inflation des obstacles
+
+  # Paramètres pour la gestion de la planification
+  controller_patience: 15.0  # Temps maximum que nous attendons pour obtenir un chemin
+  planner_patience: 5.0  # Temps d'attente maximum pour planifier un chemin
+  max_planning_retries: 3  # Nombre de tentatives maximales pour la planification avant d'abandonner
+  planner_frequency: 10.0  # Fréquence de planification (Hz)
+
+  # Paramètres de sécurité
+  robot_radius: 0.2  # Rayon du robot pour les calculs d'obstacles
+  safety_mode: "slow"  # Mode de sécurité à appliquer (par exemple, "stop" ou "slow")
+  safety_radius: 0.1  # Rayon de sécurité autour du robot pour éviter les obstacles proches
+
+
+
+
+# move_base_params.yaml
+
+# # Paramètres de la planification locale
+# TrajectoryPlannerROS:
+#   max_vel_x: 0.5
+#   min_vel_x: 0.1
+#   max_vel_theta: 1.0
+#   min_vel_theta: 0.1
+#   max_accel_x: 0.2
+#   max_accel_theta: 1.0
+
+# # Paramètres du costmap global
+# global_costmap:
+#   global_frame: map
+#   robot_base_frame: base_link
+#   update_frequency: 1.0
+#   static_map: true
+#   rolling_window: true
+#   width: 6.0
+#   height: 6.0
+#   resolution: 0.05
+
+# # Paramètres du costmap local
+# local_costmap:
+#   global_frame: map
+#   robot_base_frame: base_link
+#   update_frequency: 5.0
+#   static_map: false
+#   rolling_window: true
+#   width: 3.0
+#   height: 3.0
+#   resolution: 0.05
+
+# # Configurer les comportements de recovery
+# recovery_behaviors:
+#   # Liste des comportements de recovery à utiliser (l'ordre est important)
+#   - name: rotate_recovery
+#     type: "rotate_recovery"
+#     timeout: 10.0  # Délai en secondes pour chaque comportement
+#   - name: translate_recovery
+#     type: "translate_recovery"
+#     timeout: 5.0
+#   - name: custom_recovery
+#     type: "custom_recovery"
+#     timeout: 15.0
+
+# # Paramètres de la politique de recovery
+# recovery_behavior_enabled: true
