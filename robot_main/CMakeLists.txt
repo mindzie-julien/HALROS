@@ -17,6 +17,7 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   tf
   robot_tools
+  robot_manager
 )
 
 ## System dependencies are found with CMake's conventions
@@ -109,9 +110,9 @@ generate_messages(
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES robot_main
-#  CATKIN_DEPENDS roscpp std_msgs
+ INCLUDE_DIRS include
+ LIBRARIES robot_main
+ CATKIN_DEPENDS roscpp std_msgs robot_manager
 #  DEPENDS system_lib
 )
 
@@ -156,6 +157,7 @@ add_executable(${PROJECT_NAME}_main_node src/main.cpp)
 target_link_libraries(${PROJECT_NAME}_main_node
   ${catkin_LIBRARIES}
   robot_tools
+  robot_manager
 )
 
 #############

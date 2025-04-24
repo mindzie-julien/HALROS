@@ -112,82 +112,24 @@ void FlagMap::remove_string(const std::string& key){
   theMapString.erase(key);
 }
 
-/********************************************/
-/*********                          *********/
-/********************************************/
-
-
-DynamicReconfigureClient::DynamicReconfigureClient()
-{
-  // Crée un client pour 'TrajectoryPlannerROS' (ou le contrôleur que vous utilisez)
-  client_ = new Client("/move_base/TrajectoryPlannerROS", ros::Duration(30));
-}
-
-DynamicReconfigureClient::~DynamicReconfigureClient()
-{
-  delete client_;
-}
-
-// Fonction pour mettre à jour la vitesse maximale en dynamique
-void DynamicReconfigureClient::updateMaxVel(double new_max_vel, double new_max_vel_theta)
-{
-  Config cfg;
-  // Mettre à jour le paramètre max_vel_x et max_vel_y
-  cfg.introspect("max_vel_x", new_max_vel);
-  client_->updateConfiguration(cfg);
-  cfg.introspect("max_vel_y", new_max_vel);
-  client_->updateConfiguration(cfg);
-  new_max_vel = (-1)*new_max_vel;
-  cfg.introspect("min_vel_y", new_max_vel);
-  new_max_vel = (-1)*new_max_vel;
-  client_->updateConfiguration(cfg);
-  cfg.introspect("max_vel_theta", new_max_vel_theta);
-  client_->updateConfiguration(cfg);
-  ROS_INFO("Vitesse maximale modifiée à : %f m/s et %f rad/s", new_max_vel, new_max_vel_theta);
-}
-
-// Fonction pour mettre à jour l'accélération maximale en dynamique
-void DynamicReconfigureClient::updateMaxAccel(double new_max_accel, double new_max_accel_theta)
-{
-  Config cfg;
-  // Mettre à jour le paramètre max_accel_x
-  cfg.introspect("acc_lim_x", new_max_accel);
-  client_->updateConfiguration(cfg);
-  cfg.introspect("acc_lim_y", new_max_accel);
-  client_->updateConfiguration(cfg);
-  cfg.introspect("max_decel", new_max_accel);
-  client_->updateConfiguration(cfg);
-  cfg.introspect("acc_lim_theta", new_max_accel_theta);
-  client_->updateConfiguration(cfg);
-  ROS_INFO("Accélération maximale modifiée à : %f m/s/s et %f rad/s/s", new_max_accel, new_max_accel_theta);
-}
-
-
-
-
-
-/********************************************/
-/*********                          *********/
-/********************************************/
-
 
 // Méthode de mise à jour pour obtenir la valeur du paramètre dans le système ROS dans le gestionnaire de donnée manager
-void ManagerParam::get_bool(ros::NodeHandle& nh, const std::string& name) const{
+void ManagerParam::get_bool(ros::NodeHandle& nh, const std::string& name) {
   bool value;
   nh.getParam(name, value);
   flagMapItem.setValue(name, value);
 }
-void ManagerParam::get_string(ros::NodeHandle& nh, const std::string& name) const{
+void ManagerParam::get_string(ros::NodeHandle& nh, const std::string& name) {
   std::string value;
   nh.getParam(name, value);
   flagMapItem.setValue(name, value);
 }
-void ManagerParam::get_double(ros::NodeHandle& nh, const std::string& name) const{
+void ManagerParam::get_double(ros::NodeHandle& nh, const std::string& name) {
   double value;
   nh.getParam(name, value);
   flagMapItem.setValue(name, value);
 }
-void ManagerParam::get_int(ros::NodeHandle& nh, const std::string& name) const{
+void ManagerParam::get_int(ros::NodeHandle& nh, const std::string& name) {
   int value;
   nh.getParam(name, value);
   flagMapItem.setValue(name, value);

@@ -1,13 +1,18 @@
 #ifndef TOOLS_RAW_MANAGER_H
 #define TOOLS_RAW_MANAGER_H
 
+#include <fstream>
+#include <format>
 #include <iostream>
+#include <cstdlib> // pour setenv, getenv
 #include <type_traits>
 #include <string>
 #include <vector>
 #include <map>
+#include <nlohmann/json.hpp>
 #include <ros/ros.h>
 #include <dynamic_reconfigure/client.h>
+#include <base_local_planner/BaseLocalPlannerConfig.h>
 #include <move_base_msgs/MoveBaseAction.h>
 #include <move_base_msgs/MoveBaseActionGoal.h>
 #include <actionlib/client/simple_action_client.h>
@@ -74,39 +79,22 @@ class FlagMap {
         std::map<std::string, std::string> theMapString;
 };
 
-class DynamicReconfigureClient
-{
-public:
-  DynamicReconfigureClient();
-
-  ~DynamicReconfigureClient();
-
-  // Fonction pour mettre à jour la vitesse maximale en dynamique
-  void updateMaxVel(double new_max_vel, double new_max_vel_theta);
-
-  // Fonction pour mettre à jour l'accélération maximale en dynamique
-  void updateMaxAccel(double new_max_accel, double new_max_accel_theta);
-
-private:
-  Client *client_;
-};
-
 class ManagerParam {
     public:
 
         FlagMap flagMapItem; // gestionnaire de donnée
 
        // Méthode pour obtenir la valeur du paramètre
-        void get_bool(ros::NodeHandle& nh, const std::string& name) const;
-        void get_string(ros::NodeHandle& nh, const std::string& name) const;
-        void get_double(ros::NodeHandle& nh, const std::string& name) const;
-        void get_int(ros::NodeHandle& nh, const std::string& name) const;
+        void get_bool(ros::NodeHandle& nh, const std::string& name) ;
+        void get_string(ros::NodeHandle& nh, const std::string& name) ;
+        void get_double(ros::NodeHandle& nh, const std::string& name) ;
+        void get_int(ros::NodeHandle& nh, const std::string& name) ;
 
         // Méthode pour ajouter/modifier la valeur du paramètre
-        void set_bool(ros::NodeHandle& nh, const std::string& name, bool value);
-        void set_string(ros::NodeHandle& nh, const std::string& name, std::string value);
-        void set_double(ros::NodeHandle& nh, const std::string& name, double value);
-        void set_int(ros::NodeHandle& nh, const std::string& name, int value);
+        void set_bool(ros::NodeHandle& nh, const std::string& name);
+        void set_string(ros::NodeHandle& nh, const std::string& name);
+        void set_double(ros::NodeHandle& nh, const std::string& name);
+        void set_int(ros::NodeHandle& nh, const std::string& names);
         
 
 };

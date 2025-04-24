@@ -23,6 +23,8 @@
 #include <nav_msgs/Odometry.h>
 #include <geometry_msgs/TransformStamped.h>
 #include <tf/transform_listener.h>
+#include <move_base_msgs/MoveBaseAction.h>
+#include <actionlib/client/simple_action_client.h>
 
 #define SPEED_FILTER_LIMIT_VALUE 0.05
 
@@ -47,7 +49,7 @@ std::string getUserInputAndConvertToJson();
 
 void tfUpdate(const nav_msgs::Odometry::ConstPtr& msg);
 
-bool sendUART(std::string& data, std::string& device, int baudrate);
+bool sendUART(std::string& data, std::string& device, int baudrate);// device = ttyAMA0
 
 bool receiveUART(std::string& data, std::string& device, int baudrate);
 

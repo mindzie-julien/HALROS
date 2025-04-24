@@ -1,5 +1,5 @@
 #include "robot_main/main.hpp"
-#include "robot_manager/tools_manager.hpp"
+
 
 
 
@@ -8,6 +8,9 @@ int main(int argc, char** argv)
     ros::init(argc, argv, "main");
     ros::NodeHandle n;
     ros::Rate loopRate(_5_MILLISECONDS);
+
+    init_robot_param(n);
+    init_all_telecom_msg(n);
 
     starting_detected(); // détection de l'activation de système
 
@@ -25,7 +28,7 @@ int main(int argc, char** argv)
         loopRate.sleep();
         
         currentTime = currentTime + _5_MILLISECONDS;
-        managerParam.flagMapItem.SetValue(CURRENT_TIME, currentTime); // chargement de la donnée à partir du gestionnaire de donnée manager
+        managerParam.flagMapItem.setValue(CURRENT_TIME, currentTime); // chargement de la donnée à partir du gestionnaire de donnée manager
         managerParam.set_double(n, CURRENT_TIME); // mise à jour des données à partir du système ROS dans le gestionnaire de donnée manager
     
     }while(value);
@@ -53,4 +56,3 @@ void init_timer(ros::NodeHandle& nh)
     timer_Warning_Time_Alarm = nh.createTimer(ros::Duration(MATCH_DURATION_IN_SECOND - ALERT_FLAG_DURATION_IN_SECOND), timerCallback_Warning_Time_Alarm, false, false); // 80 secondes
     timer_Stop_Time_Alarm = nh.createTimer(ros::Duration(MATCH_DURATION_IN_SECOND), timerCallback_Stop_Time_Alarm, false, false); // 90 secondes
 }
-

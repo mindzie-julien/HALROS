@@ -1,0 +1,27 @@
+{
+    "team":"YELLOW",
+    "0":{"AD":{"1":"OFF"}},
+    "1":{"WHITE":{"2":"CAPTURE"}},
+    "2":{"AC":{"1":"RELEASE"}},
+    "3":{"AC":{"2":"BANNER"}},
+    "4":{"WHITE":{"2":"CAPTURE"}},
+    "5":{"AC":{"2":"RELEASE"}},
+    "6":{"WHITE":{"3":"CAPTURE"}},
+    "7":{"AC":{"1":"RELEASE"}},
+    "8":{"WHITE":{"4":"CAPTURE"}},
+    "9":{"AC":{"2":"RELEASE"}},
+    "10":{"WHITE":{"5":"CAPTURE"}},
+    "11":{"AC":{"4":"RELEASE"}},
+    "12":{"WHITE":{"6":"CAPTURE"}},
+    "13":{"AC":{"4":"RELEASE"}},
+    "14":{"WHITE":{"7":"CAPTURE"}},
+    "15":{"AC":{"3":"RELEASE"}},
+    "16":{"WHITE":{"8":"CAPTURE"}},
+    "17":{"AC":{"4":"RELEASE"}},
+    "18":{"AC_E":{"1":"DESTROY"}},
+    "19":{"AC_E":{"2":"DESTROY"}},
+    "20":{"AC_E":{"3":"DESTROY"}},
+    "21":{"AC_E":{"4":"DESTROY"}},
+    "end":{"AA":{"1":"PEACE"}}
+    
+}

@@ -1,0 +1,50 @@
+{
+    "low":
+    {
+        "acc_lim_x": 0.1,
+        "max_vel_x": 0.5,
+        "min_vel_x": 0.2,
+        "max_vel_theta": 15,
+        "acc_lim_theta": 15,
+        "xy_goal_tolerance": 0.05,
+        "yaw_goal_tolerance": 15,
+        "min_in_place_vel_theta": 45,
+        "min_vel_theta": 15,
+        "escape_vel": 1.0,
+        "holonomic_robot": true,
+        "y_vels": [1.0, -1.0, -1.0, 1.0],
+        "latch_xy_goal_tolerance": 0
+    },
+    "medium":
+    {
+        "acc_lim_x": 0.3,
+        "max_vel_x": 0.7,
+        "min_vel_x": 0.2,
+        "max_vel_theta": 30,
+        "acc_lim_theta": 15,
+        "xy_goal_tolerance": 0.05,
+        "yaw_goal_tolerance": 15,
+        "min_in_place_vel_theta": 45,
+        "min_vel_theta": 15,
+        "escape_vel": 1.0,
+        "holonomic_robot": true,
+        "y_vels": [1.0, -1.0, -1.0, 1.0],
+        "latch_xy_goal_tolerance": 0
+    },
+    "fast":
+    {
+        "acc_lim_x": 0.5,
+        "max_vel_x": 1.0,
+        "min_vel_x": 0.2,
+        "max_vel_theta": 90,
+        "acc_lim_theta": 15,
+        "xy_goal_tolerance": 0.05,
+        "yaw_goal_tolerance": 15,
+        "min_in_place_vel_theta": 45,
+        "min_vel_theta": 15,
+        "escape_vel": 1.0,
+        "holonomic_robot": true,
+        "y_vels": [1.0, -1.0, -1.0, 1.0],
+        "latch_xy_goal_tolerance": 0
+    }
+}
